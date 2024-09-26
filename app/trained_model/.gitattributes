@@ -1,0 +1,2 @@
+trained_oxford_flowers_model.zip filter=lfs diff=lfs merge=lfs -text
+trained_oxford_flowers_model filter=lfs diff=lfs merge=lfs -text
