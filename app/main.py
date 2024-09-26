@@ -3,12 +3,18 @@ import tensorflow as tf
 from PIL import Image
 import numpy as np
 import os
+import altair
+
 
 # Define the path to the trained model
-model_path = '/content/trained_oxford_flowers_model.h5'  # Adjust this path as per your file location in Colab
+model_path = 'app/trained_model/trained_oxford_flowers_model.h5'  # Adjust this path as per your file location in Colab
 
-# Load the pre-trained model
-model = tf.keras.models.load_model(model_path)
+# Load the pre-trained model with error handling
+try:
+    model = tf.keras.models.load_model(model_path)
+except Exception as e:
+    st.error(f"Error loading model: {str(e)}")
+    st.stop()  # Stop further execution if the model can't be loaded
 
 # Define class labels for Oxford Flowers 102 dataset
 class_names = [
@@ -32,7 +38,7 @@ class_names = [
     'Tulip', 'Verbena', 'Violet', 'Wallflower', 
     'Wild geranium', 'Wild sweet pea', 'Wisteria', 
     'Zinnia'
-    # Add the remaining class labels to make a total of 102
+    # Ensure you have a total of 102 class labels here
 ]
 
 # Function to preprocess the uploaded image
@@ -46,6 +52,7 @@ def preprocess_image(image):
 # Streamlit App
 st.title('Oxford Flowers Classifier')
 
+# File uploader for image input
 uploaded_image = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"])
 
 if uploaded_image is not None:
@@ -53,8 +60,8 @@ if uploaded_image is not None:
     col1, col2 = st.columns(2)
 
     with col1:
-        resized_img = image.resize((100, 100))
-        st.image(resized_img)
+        resized_img = image.resize((100, 100))  # Display a smaller version of the uploaded image
+        st.image(resized_img, caption="Uploaded Image", use_column_width=True)
 
     with col2:
         if st.button('Classify'):
@@ -63,7 +70,8 @@ if uploaded_image is not None:
 
             # Make a prediction using the pre-trained model
             result = model.predict(img_array)
-            predicted_class = np.argmax(result)
-            prediction = class_names[predicted_class]
+            predicted_class = np.argmax(result)  # Get the index of the highest probability
+            prediction = class_names[predicted_class]  # Get the class label
 
+            # Display the prediction result
             st.success(f'Prediction: {prediction}')
