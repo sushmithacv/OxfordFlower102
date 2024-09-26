@@ -3,6 +3,8 @@ import tensorflow as tf
 from PIL import Image
 import numpy as np
 import os
+import altair
+
 
 # Define the path to the trained model
 model_path = '/app/trained_model/trained_oxford_flowers_model.h5'  # Adjust this path as per your file location in Colab
