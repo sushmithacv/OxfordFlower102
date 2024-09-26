@@ -5,7 +5,7 @@ import numpy as np
 import os
 
 # Define the path to the trained model
-model_path = '/content/trained_oxford_flowers_model.h5'  # Adjust this path as per your file location in Colab
+model_path = '/app/trained_model/trained_oxford_flowers_model.h5'  # Adjust this path as per your file location in Colab
 
 # Load the pre-trained model
 model = tf.keras.models.load_model(model_path)
