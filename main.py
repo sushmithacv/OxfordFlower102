@@ -5,7 +5,7 @@ import numpy as np
 import os
 
 # Define the path to the trained model
-model_path = 'trained_oxford_flowers_model.h5'  # Adjust this path as per your file location in Colab
+model_path = 'https://github.com/sushmithacv/OxfordFlower102/trained_oxford_flowers_model.h5/trained_oxford_flowers_model.h5'  # Adjust this path as per your file location in Colab
 
 # Load the pre-trained model with error handling
 try:
